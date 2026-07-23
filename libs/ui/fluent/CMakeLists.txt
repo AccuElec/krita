@@ -25,6 +25,14 @@ target_sources(kritafluentui PRIVATE
     panels/KisFluentColorPanel.cpp
     panels/KisFluentEyedropperOverlay.cpp
     panels/KisFluentLayerPanel.cpp
+
+    # Phase 3: Tools, Gallery, Animation & Onboarding
+    tools/KisFluentSelectionBar.cpp
+    tools/KisFluentTransformOverlay.cpp
+    gallery/KisFluentGalleryView.cpp
+    gallery/KisFluentCanvasPresetPicker.cpp
+    panels/KisFluentAnimationTimeline.cpp
+    onboarding/KisFluentGestureGuide.cpp
 )
 
 # Define the export macro when building this library
@@ -38,6 +46,9 @@ target_include_directories(kritafluentui
         ${CMAKE_CURRENT_SOURCE_DIR}/..
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets
         ${CMAKE_CURRENT_SOURCE_DIR}/panels
+        ${CMAKE_CURRENT_SOURCE_DIR}/tools
+        ${CMAKE_CURRENT_SOURCE_DIR}/gallery
+        ${CMAKE_CURRENT_SOURCE_DIR}/onboarding
 )
 
 target_link_libraries(kritafluentui
@@ -75,7 +86,25 @@ install(FILES
     panels/KisFluentColorPanel.h
     panels/KisFluentEyedropperOverlay.h
     panels/KisFluentLayerPanel.h
+    panels/KisFluentAnimationTimeline.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/panels
+)
+
+install(FILES
+    tools/KisFluentSelectionBar.h
+    tools/KisFluentTransformOverlay.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/tools
+)
+
+install(FILES
+    gallery/KisFluentGalleryView.h
+    gallery/KisFluentCanvasPresetPicker.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/gallery
+)
+
+install(FILES
+    onboarding/KisFluentGestureGuide.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/onboarding
 )
 
 # Install the library
