@@ -9,7 +9,7 @@
 
 #include <QWidget>
 #include <QPropertyAnimation>
-#include "kritaui_export.h"
+#include "KisFluentUiExport.h"
 
 /**
  * @brief Floating bottom toolbar for selection tools in the KritaFluent UI.
@@ -18,7 +18,7 @@
  * (Add, Subtract, etc.), and actions (Invert, Deselect, etc.). Features a 
  * dark semi-transparent background, rounded corners, and slide-up animation.
  */
-class KRITAUI_EXPORT KisFluentSelectionBar : public QWidget
+class KRITA_FLUENT_UI_EXPORT KisFluentSelectionBar : public QWidget
 {
     Q_OBJECT
 

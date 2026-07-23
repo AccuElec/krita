@@ -10,7 +10,7 @@
 #include <QWidget>
 #include <QTransform>
 #include <QRectF>
-#include "kritaui_export.h"
+#include "KisFluentUiExport.h"
 
 /**
  * @brief Transparent overlay for transform operations in the KritaFluent UI.
@@ -19,7 +19,7 @@
  * mode tabs (Free Transform, Perspective, etc.) and numeric input fields.
  * Supports both touch (pinch/twist) and desktop (drag, modifiers) input.
  */
-class KRITAUI_EXPORT KisFluentTransformOverlay : public QWidget
+class KRITA_FLUENT_UI_EXPORT KisFluentTransformOverlay : public QWidget
 {
     Q_OBJECT
 

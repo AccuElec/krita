@@ -1,6 +1,10 @@
-# SPDX-FileCopyrightText: 2026 KritaFluent Contributors
-#
-# SPDX-License-Identifier: GPL-3.0-or-later
+cmake_minimum_required(VERSION 3.16)
+
+# Find Qt6 components
+find_package(Qt6 COMPONENTS Core Gui Widgets OpenGL OpenGLWidgets QUIET)
+if (NOT Qt6_FOUND)
+    find_package(Qt5 COMPONENTS Core Gui Widgets OpenGL REQUIRED)
+endif()
 
 # Define the KritaFluent UI library
 add_library(kritafluentui SHARED)
@@ -9,6 +13,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set_target_properties(kritafluentui PROPERTIES AUTOMOC ON)
+
 
 target_sources(kritafluentui PRIVATE
     # Phase 1: Core Architecture
@@ -56,17 +61,15 @@ target_include_directories(kritafluentui
         ${CMAKE_CURRENT_SOURCE_DIR}/desktop
 )
 
+if (TARGET Qt6::Core)
+    set(FLUENT_QT_LIBS Qt6::Core Qt6::Gui Qt6::Widgets Qt6::OpenGL Qt6::OpenGLWidgets)
+else()
+    set(FLUENT_QT_LIBS Qt5::Core Qt5::Gui Qt5::Widgets Qt5::OpenGL)
+endif()
+
 target_link_libraries(kritafluentui
     PUBLIC
-        Qt6::Core
-        Qt6::Gui
-        Qt6::Widgets
-        Qt6::OpenGL
-        Qt6::OpenGLWidgets
-        kritaui
-        kritaimage
-        kritaglobal
-        kritawidgets
+        ${FLUENT_QT_LIBS}
 )
 
 # Install headers

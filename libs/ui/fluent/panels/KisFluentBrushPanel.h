@@ -14,8 +14,9 @@
 #include <QLabel>
 #include <QMap>
 
-// Krita includes (forward declarations)
-#include <kis_paintop_preset.h>
+// Forward declarations
+class KisPaintOpPreset;
+typedef QSharedPointer<KisPaintOpPreset> KisPaintOpPresetSP;
 
 /**
  * @brief Slide-out brush library and brush studio panel for KritaFluent

@@ -75,7 +75,7 @@ private:
     InputType m_activeInputType { Mouse };
     Qt::LayoutDirection m_handedness { Qt::LeftToRight };
 
-    QPointer<KisMainWindow> m_mainWindow;
+    KisMainWindow *m_mainWindow { nullptr };
     KisFluentTopBar *m_topBar { nullptr };
     KisFluentSliders *m_sliders { nullptr };
     KisFluentCanvasOverlay *m_overlay { nullptr };
