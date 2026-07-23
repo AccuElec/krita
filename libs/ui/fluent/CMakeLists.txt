@@ -33,6 +33,10 @@ target_sources(kritafluentui PRIVATE
     gallery/KisFluentCanvasPresetPicker.cpp
     panels/KisFluentAnimationTimeline.cpp
     onboarding/KisFluentGestureGuide.cpp
+
+    # Phase 4: Actions & Desktop Management
+    panels/KisFluentActionsMenu.cpp
+    desktop/KisFluentDesktopManager.cpp
 )
 
 # Define the export macro when building this library
@@ -49,6 +53,7 @@ target_include_directories(kritafluentui
         ${CMAKE_CURRENT_SOURCE_DIR}/tools
         ${CMAKE_CURRENT_SOURCE_DIR}/gallery
         ${CMAKE_CURRENT_SOURCE_DIR}/onboarding
+        ${CMAKE_CURRENT_SOURCE_DIR}/desktop
 )
 
 target_link_libraries(kritafluentui
@@ -87,6 +92,7 @@ install(FILES
     panels/KisFluentEyedropperOverlay.h
     panels/KisFluentLayerPanel.h
     panels/KisFluentAnimationTimeline.h
+    panels/KisFluentActionsMenu.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/panels
 )
 
@@ -105,6 +111,11 @@ install(FILES
 install(FILES
     onboarding/KisFluentGestureGuide.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/onboarding
+)
+
+install(FILES
+    desktop/KisFluentDesktopManager.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/desktop
 )
 
 # Install the library
