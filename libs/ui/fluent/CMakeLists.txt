@@ -11,11 +11,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set_target_properties(kritafluentui PROPERTIES AUTOMOC ON)
 
 target_sources(kritafluentui PRIVATE
+    # Phase 1: Core Architecture
     KisFluentController.cpp
     KisFluentInputEngine.cpp
     KisFluentCanvasOverlay.cpp
     widgets/KisFluentTopBar.cpp
     widgets/KisFluentSliders.cpp
+
+    # Phase 2: Panels & Workflows
+    widgets/KisFluentQuickMenu.cpp
+    panels/KisFluentBrushPanel.cpp
+    panels/KisFluentBrushStudio.cpp
+    panels/KisFluentColorPanel.cpp
+    panels/KisFluentEyedropperOverlay.cpp
+    panels/KisFluentLayerPanel.cpp
 )
 
 # Define the export macro when building this library
@@ -28,6 +37,7 @@ target_include_directories(kritafluentui
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/..
         ${CMAKE_CURRENT_SOURCE_DIR}/widgets
+        ${CMAKE_CURRENT_SOURCE_DIR}/panels
 )
 
 target_link_libraries(kritafluentui
@@ -55,7 +65,17 @@ install(FILES
 install(FILES
     widgets/KisFluentTopBar.h
     widgets/KisFluentSliders.h
+    widgets/KisFluentQuickMenu.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/widgets
+)
+
+install(FILES
+    panels/KisFluentBrushPanel.h
+    panels/KisFluentBrushStudio.h
+    panels/KisFluentColorPanel.h
+    panels/KisFluentEyedropperOverlay.h
+    panels/KisFluentLayerPanel.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/krita/fluent/panels
 )
 
 # Install the library
