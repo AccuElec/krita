@@ -1,0 +1,108 @@
+name: Build KritaFluent (Windows & Android)
+
+on:
+  push:
+    branches:
+      - feature/fluent-ui
+      - main
+  pull_request:
+    branches:
+      - feature/fluent-ui
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Build KritaFluent (Windows x64)
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Ninja
+        uses: breeze-build/setup-ninja@v1.0.0
+
+      - name: Setup Qt 6
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.5.3'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc2019_64'
+
+      - name: Enable MSVC Environment
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure CMake with KritaFluent
+        run: |
+          cmake -B build -S . `
+            -G "Ninja" `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DKRITA_FLUENT_UI=ON `
+            -DBUILD_TESTING=OFF
+
+      - name: Build KritaFluent Target
+        run: |
+          cmake --build build --config Release --target kritafluentui --parallel
+
+      - name: Upload KritaFluent Windows Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: KritaFluent-Windows-x64
+          path: |
+            build/bin/
+            build/lib/
+            build/libs/ui/fluent/
+
+  build-android:
+    name: Build KritaFluent (Android ARM64)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android NDK
+        uses: nsetup/setup-android-ndk@v1
+        with:
+          ndk-version: r25c
+
+      - name: Setup Qt for Android
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.5.3'
+          target: 'android'
+          arch: 'android_arm64_v8a'
+
+      - name: Configure CMake for Android
+        run: |
+          cmake -B build-android -S . \
+            -G "Ninja" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DKRITA_FLUENT_UI=ON \
+            -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
+            -DANDROID_ABI=arm64-v8a \
+            -DANDROID_PLATFORM=android-24
+
+      - name: Build KritaFluent Android Target
+        run: |
+          cmake --build build-android --config Release --target kritafluentui --parallel
+
+      - name: Upload KritaFluent Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: KritaFluent-Android-ARM64
+          path: |
+            build-android/lib/
+            build-android/bin/
